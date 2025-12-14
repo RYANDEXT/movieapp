@@ -3,19 +3,16 @@ import { mobileNavigation } from '../constants/navigation';
 
 const MobileNavigation = () => {
     return (
-        <section className="lg:hidden h-14 bg-neutral-600/40 fixed bottom-0 w-full">
+        <section className="lg:hidden h-14 bg-black/80 backdrop-blur-2xl fixed bottom-0 w-full z-40">
             <div className="flex items-center justify-between h-full text-neutral-400">
                 {mobileNavigation.map((nav, index) => {
                     return (
                         <NavLink
-                            key={nav.label + 'mobileNavigation'}
+                            key={nav.label + 'mobileNavigation' + index}
                             to={nav.href}
                             className={({ isActive }) =>
-                                `px-3 flex h-full items-center flex-col justify-center ${
-                                    isActive && 'text-white'
-                                }`
-                            }
-                        >
+                                `px-3 flex h-full items-center flex-col justify-center ${isActive && 'text-white'}`
+                            }>
                             <div className="text-2xl">{nav.icon}</div>
                             <p className="text-sm">{nav.label}</p>
                         </NavLink>

@@ -8,14 +8,16 @@ const Home = () => {
     const { data: nowPlayingData } = useFetch('/movie/now_playing');
     const { data: topRatedData } = useFetch('/movie/top_rated');
     const { data: popularTvShowData } = useFetch('/tv/popular');
+    const { data: onAirShowData } = useFetch('/tv/on_the_air');
 
     return (
         <div>
             <BannerHome />
             <HorizontalScrollCard data={trendingData} heading="Trending" trending={true} />
-            <HorizontalScrollCard data={nowPlayingData} heading="Now Playing" />
-            <HorizontalScrollCard data={topRatedData} heading="Top Rated Movies" />
-            <HorizontalScrollCard data={popularTvShowData} heading="Popular TV Show" />
+            <HorizontalScrollCard data={nowPlayingData} heading="Now Playing" media_type={'movie'} />
+            <HorizontalScrollCard data={topRatedData} heading="Top Rated Movies" media_type={'movie'} />
+            <HorizontalScrollCard data={popularTvShowData} heading="Popular TV Show" media_type={'tv'} />
+            <HorizontalScrollCard data={onAirShowData} heading="On The Air" media_type={'tv'} />
         </div>
     );
 };

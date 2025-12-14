@@ -11,7 +11,7 @@ export const navigation = [
     },
     {
         label: 'Movies',
-        href: 'movies',
+        href: 'movie',
         icon: <BiSolidMoviePlay />,
     },
 ];

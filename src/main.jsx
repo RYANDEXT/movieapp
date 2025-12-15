@@ -14,11 +14,11 @@ const VITE_MOVIE_ACCESS_TOKEN = import.meta.env.VITE_MOVIE_ACCESS_TOKEN;
 axios.defaults.headers.common['Authorization'] = `Bearer ${VITE_MOVIE_ACCESS_TOKEN}`;
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
-        <Provider store={store}>
-            <RouterProvider router={router}>
-                <App />
-            </RouterProvider>
-        </Provider>
-    </StrictMode>
+    // <StrictMode>
+    <Provider store={store}>
+        <RouterProvider router={router}>
+            <App />
+        </RouterProvider>
+    </Provider>
+    // </StrictMode>
 );

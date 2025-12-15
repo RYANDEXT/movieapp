@@ -1,19 +1,20 @@
 import logo from '../assets/logo.png';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import userIcon from '../assets/user.png';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
 import { navigation } from '../constants/navigation';
 
 const Header = () => {
-    const [searchInput, setSearchInput] = useState('');
+    const location = useLocation();
+    const [searchInput, setSearchInput] = useState(location?.search?.slice(3)?.split('%20')?.join(' '));
     const navigate = useNavigate();
 
     useEffect(() => {
         if (searchInput) {
             navigate(`/search?q=${searchInput}`);
         }
-    }, [searchInput]);
+    }, [searchInput, navigate]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,7 +32,9 @@ const Header = () => {
                         <div key={nav.label + 'header' + index}>
                             <NavLink
                                 to={nav.href}
-                                className={({ isActive }) => `px-2 hover:text-neutral-100 ${isActive && 'text-neutral-100'}`}>
+                                className={({ isActive }) =>
+                                    `px-2 hover:text-neutral-100 ${isActive && 'text-neutral-100'}`
+                                }>
                                 {nav.label}
                             </NavLink>
                         </div>

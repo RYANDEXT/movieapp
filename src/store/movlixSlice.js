@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     bannerData: [],
     imageURL: '',
+    loading: false,
 };
 
 export const movlixSlice = createSlice({
@@ -15,8 +16,11 @@ export const movlixSlice = createSlice({
         setImageURL: (state, action) => {
             state.imageURL = action.payload;
         },
+        setGlobalLoading: (state, action) => {
+            state.loading = action.payload;
+        },
     },
 });
 
-export const { setBanerData, setImageURL } = movlixSlice.actions;
+export const { setBanerData, setImageURL, setGlobalLoading } = movlixSlice.actions;
 export default movlixSlice.reducer;

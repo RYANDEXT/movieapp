@@ -10,7 +10,13 @@ export const Card = ({ data, trending, index, media_type }) => {
         <Link
             to={'/' + mediaType + '/' + data.id}
             className="drop-shadow-xl drop-shadow-black/50 w-full min-w-57.5 max-w-57.5 h-80 overflow-hidden block rounded-xl relative hover:scale-105 transition-all">
-            <img src={imageURL + data?.poster_path} alt="Movie Poster" />
+            {data?.poster_path ? (
+                <img src={imageURL + data?.poster_path} alt="Movie Poster" />
+            ) : (
+                <div className="w-full h-full flex justify-center items-center">
+                    <p>No Image Found</p>
+                </div>
+            )}
             <div className="absolute top-4">
                 {trending && (
                     <div className="py-1 px-4 backdrop-blur-3xl rounded-r-full bg-black/55 overflow-hidden">

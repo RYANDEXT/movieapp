@@ -18,7 +18,7 @@ const useFetchDetail = (endpoint) => {
             }
         };
         fetchData();
-    }, []);
+    }, [endpoint]);
 
     return { data, loading };
 };

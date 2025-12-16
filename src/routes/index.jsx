@@ -4,6 +4,7 @@ import Home from '../pages/Home';
 import ExplorePage from '../pages/ExplorePage';
 import DetailPage from '../pages/DetailPage';
 import SearchPage from '../pages/SearchPage';
+import ValidateExplorer from '../components/HOC/ValidateExplorer';
 
 const router = createBrowserRouter([
     {
@@ -16,11 +17,19 @@ const router = createBrowserRouter([
             },
             {
                 path: ':explore',
-                element: <ExplorePage />,
+                element: (
+                    <ValidateExplorer>
+                        <ExplorePage />
+                    </ValidateExplorer>
+                ),
             },
             {
                 path: ':explore/:id',
-                element: <DetailPage />,
+                element: (
+                    <ValidateExplorer>
+                        <DetailPage />
+                    </ValidateExplorer>
+                ),
             },
             {
                 path: 'search',

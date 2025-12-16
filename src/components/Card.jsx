@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-
 export const Card = ({ data, trending, index, media_type }) => {
     const imageURL = useSelector((state) => state.movlixData.imageURL);
 
@@ -36,3 +35,5 @@ export const Card = ({ data, trending, index, media_type }) => {
         </Link>
     );
 };
+
+export default Card;

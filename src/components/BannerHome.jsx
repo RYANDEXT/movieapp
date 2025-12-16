@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { FaStar, FaAngleRight, FaAngleLeft } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const BannerHome = () => {
     const bannerData = useSelector((state) => state.movlixData.bannerData);
@@ -53,7 +54,11 @@ const BannerHome = () => {
                         className="min-w-full min-h-112.5 lg:min-h-full overflow-hidden relative group transition-all duration-500 ease-in-out"
                         style={{ transform: `translateX(-${currentImage * 100}%)` }}>
                         <div className="w-full h-full">
-                            <img src={imageURL + data.backdrop_path} alt="Movie Image" className="h-full w-full object-cover" />
+                            <img
+                                src={imageURL + data.backdrop_path}
+                                alt="Movie Image"
+                                className="h-full w-full object-cover"
+                            />
                         </div>
 
                         {/* button next and previous image */}
@@ -83,9 +88,11 @@ const BannerHome = () => {
                                     <span>|</span>
                                     <p>Views : {Number(data.popularity).toFixed(0)}</p>
                                 </div>
-                                <button className="px-4 py-2 text-black font-bold rounded mt-4 bg-white hover:bg-linear-to-l from-blue-700 to-red-700 shadow-md transition-all hover:scale-105">
-                                    See the trailer
-                                </button>
+                                <Link
+                                    to={`/${data.media_type}/${data.id}`}
+                                    className="inline-block px-4 py-2 text-black font-bold rounded mt-4 bg-white hover:bg-linear-to-l from-blue-700 to-red-700 shadow-md transition-all hover:scale-105">
+                                    Watch Trailer
+                                </Link>
                             </div>
                         </div>
                     </div>

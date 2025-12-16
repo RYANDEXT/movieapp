@@ -22,7 +22,7 @@ const useFetch = (endpoint) => {
             }
         };
         fetchData();
-    }, []);
+    }, [endpoint]);
 
     return { data, loading };
 };

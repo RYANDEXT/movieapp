@@ -5,16 +5,26 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 import Divider from '../components/Divider';
 import HorizontalScrollCard from '../components/HorizontalScrollCard';
+import { useState } from 'react';
+import VideoPlay from '../components/VideoPlay';
 
 const DetailPage = () => {
     const params = useParams();
     const imageURL = useSelector((state) => state.movlixData.imageURL);
     const { data, loading } = useFetchDetail(`/${params.explore}/${params.id}`);
-    const { data: castData } = useFetchDetail(`/${params.explore}/${params.id}/credits`);
-    const { data: similarMovie } = useFetch(`/${params.explore}/${params.id}/similar`);
+    const { data: castData } = useFetchDetail(`/${params?.explore}/${params?.id}/credits`);
+    const { data: similarMovies } = useFetch(`/${params?.explore}/${params?.id}/similar`);
+    const { data: recommendationMovies } = useFetch(`/${params?.explore}/${params?.id}/recommendations`);
+    const [playVideo, setPlayVideo] = useState(false);
+    const [playVideoId, setPlayVideoId] = useState('');
 
     console.log('data', data);
     console.log('castData', castData);
+
+    const handlePlayVideo = (data) => {
+        setPlayVideoId(data?.id);
+        setPlayVideo(true);
+    };
 
     const writers = [
         ...new Set(castData?.crew.filter((el) => el.known_for_department === 'Writing').map((el) => el.name)),
@@ -49,6 +59,11 @@ const DetailPage = () => {
                                 alt="Banner Movie"
                                 className="h-80 w-60 object-cover rounded-lg"
                             />
+                            <button
+                                onClick={() => handlePlayVideo(data)}
+                                className="mt-3 w-full py-2 px-4 text-center bg-white text-black rounded font-bold text-lg hover:bg-linear-to-l from-blue-700 to-red-700 hover:scale-105 transition-all">
+                                Watch Trailer
+                            </button>
                         </div>
 
                         {/* TITLE */}
@@ -105,7 +120,7 @@ const DetailPage = () => {
                                     <p>
                                         <span className="text-white">Writer: </span>
                                         {writers.map((writer) => (
-                                            <span>{writer}, </span>
+                                            <span key={writer}>{writer}, </span>
                                         ))}
                                     </p>
                                 </div>
@@ -138,11 +153,20 @@ const DetailPage = () => {
 
                     <div>
                         <HorizontalScrollCard
-                            data={similarMovie}
+                            data={similarMovies}
                             heading={`Similar ${params.explore}`}
                             media_type={params.explore}
                         />
+                        <HorizontalScrollCard
+                            data={recommendationMovies}
+                            heading={`Recomendation ${params.explore}`}
+                            media_type={params.explore}
+                        />
                     </div>
+
+                    {playVideo && (
+                        <VideoPlay data={playVideoId} close={() => setPlayVideo(false)} media_type={params.explore} />
+                    )}
                 </div>
             )}
         </>

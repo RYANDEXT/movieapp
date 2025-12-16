@@ -23,21 +23,22 @@ const Header = () => {
     return (
         <header className="fixed top-0 w-full h-16 bg-black/75 z-50">
             <div className="container mx-auto px-3 flex items-center h-full">
-                <Link to="/">
+                <Link to="/" className="cursor-pointer w-40 h-full flex items-center justify-center">
                     <img src={logo} alt="logo" width={120} />
                 </Link>
 
-                <nav className="hidden lg:flex items-center gap-1 ml-5">
+                <nav className="hidden lg:flex items-center gap-1 ml-5 h-full">
                     {navigation.map((nav, index) => (
-                        <div key={nav.label + 'header' + index}>
-                            <NavLink
-                                to={nav.href}
-                                className={({ isActive }) =>
-                                    `px-2 hover:text-neutral-100 ${isActive && 'text-neutral-100'}`
-                                }>
-                                {nav.label}
-                            </NavLink>
-                        </div>
+                        <NavLink
+                            key={nav.label + 'header' + index}
+                            to={nav.href}
+                            className={({ isActive }) =>
+                                `px-2 hover:text-neutral-100 cursor-pointer h-full flex justify-center items-center ${
+                                    isActive && 'text-neutral-100'
+                                }`
+                            }>
+                            {nav.label}
+                        </NavLink>
                     ))}
                 </nav>
 
@@ -52,7 +53,7 @@ const Header = () => {
                             placeholder="Search here..."
                             onChange={(e) => setSearchInput(e.target.value)}
                         />
-                        <button className="text-2xl text-white">
+                        <button className="text-2xl text-white hidden lg:block">
                             <IoSearchOutline />
                         </button>
                     </form>

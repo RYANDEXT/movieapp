@@ -18,9 +18,6 @@ const DetailPage = () => {
     const [playVideo, setPlayVideo] = useState(false);
     const [playVideoId, setPlayVideoId] = useState('');
 
-    console.log('data', data);
-    console.log('castData', castData);
-
     const handlePlayVideo = (data) => {
         setPlayVideoId(data?.id);
         setPlayVideo(true);
@@ -30,11 +27,9 @@ const DetailPage = () => {
         ...new Set(castData?.crew.filter((el) => el.known_for_department === 'Writing').map((el) => el.name)),
     ];
 
-    console.log('writer', writers);
-
     return (
         <>
-            {loading || !data ? (
+            {loading || data.length === 0 ? (
                 <div className="w-full h-screen flex justify-center items-center">
                     <h2 className="text-4xl font-bold">Loading...</h2>
                 </div>
@@ -91,80 +86,84 @@ const DetailPage = () => {
                             <Divider />
 
                             {/* OVEVIEW & INFO 2 */}
-                            <div>
-                                <h3 className="text-xl font-bold text-white mb-1">Overview</h3>
-                                <p className="text-justify">{data?.overview}</p>
-                                <Divider />
-                                <div className="lg:flex items-center gap-3 my-3ß">
-                                    <p>Status: {data?.status}</p>
-                                    <span className="hidden lg:block">|</span>
-                                    <p>Release Date: {moment(data?.releaste_date).format('MMM Do YYYY')}</p>
-                                    <span className="hidden lg:block">|</span>
-                                    <p>
-                                        Genre :{' '}
-                                        {data?.genres.map((genre) => (
-                                            <span key={genre.id} className="inline">
-                                                {genre.name},{' '}
-                                            </span>
-                                        ))}
-                                    </p>
-                                </div>
-
-                                <Divider />
-
-                                {/* INFO 3 */}
+                            {castData && castData.length > 0 && (
                                 <div>
-                                    <p>
-                                        <span className="text-white">Director</span> : {castData?.crew[0]?.name}
-                                    </p>
-                                    <p>
-                                        <span className="text-white">Writer: </span>
-                                        {writers.map((writer) => (
-                                            <span key={writer}>{writer}, </span>
-                                        ))}
-                                    </p>
-                                </div>
-
-                                {/* Cast */}
-                                <div>
-                                    <h2 className="font-bold text-lg">Cast :</h2>
-                                    <div className="grid grid-cols-[repeat(auto-fit,96px)] gap-5">
-                                        {castData?.cast
-                                            .filter((el) => el.profile_path)
-                                            .map((starCast, index) => (
-                                                <div key={starCast.id + 'starCaster' + index}>
-                                                    <div>
-                                                        <img
-                                                            src={imageURL + starCast?.profile_path}
-                                                            alt={starCast?.name}
-                                                            className="w-24 h-24 object-cover rounded-full"
-                                                        />
-                                                    </div>
-                                                    <p className="font-bold text-center text-sm text-neutral-400">
-                                                        {starCast?.name}
-                                                    </p>
-                                                </div>
+                                    <h3 className="text-xl font-bold text-white mb-1">Overview</h3>
+                                    <p className="text-justify">{data?.overview}</p>
+                                    <Divider />
+                                    <div className="lg:flex items-center gap-3 my-3ß">
+                                        <p>Status: {data?.status}</p>
+                                        <span className="hidden lg:block">|</span>
+                                        <p>Release Date: {moment(data?.releaste_date).format('MMM Do YYYY')}</p>
+                                        <span className="hidden lg:block">|</span>
+                                        <p>
+                                            Genre :{' '}
+                                            {data?.genres.map((genre) => (
+                                                <span key={genre.id} className="inline">
+                                                    {genre.name},{' '}
+                                                </span>
                                             ))}
+                                        </p>
+                                    </div>
+
+                                    <Divider />
+
+                                    {/* INFO 3 */}
+                                    <div>
+                                        <p>
+                                            <span className="text-white">Director</span> : {castData?.crew[0]?.name}
+                                        </p>
+                                        <p>
+                                            <span className="text-white">Writer: </span>
+                                            {writers.map((writer) => (
+                                                <span key={writer}>{writer}, </span>
+                                            ))}
+                                        </p>
+                                    </div>
+
+                                    {/* Cast */}
+                                    <div>
+                                        <h2 className="font-bold text-lg">Cast :</h2>
+                                        <div className="grid grid-cols-[repeat(auto-fit,96px)] gap-5">
+                                            {castData?.cast
+                                                .filter((el) => el.profile_path)
+                                                .map((starCast, index) => (
+                                                    <div key={starCast.id + 'starCaster' + index}>
+                                                        <div>
+                                                            <img
+                                                                src={imageURL + starCast?.profile_path}
+                                                                alt={starCast?.name}
+                                                                className="w-24 h-24 object-cover rounded-full"
+                                                            />
+                                                        </div>
+                                                        <p className="font-bold text-center text-sm text-neutral-400">
+                                                            {starCast?.name}
+                                                        </p>
+                                                    </div>
+                                                ))}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
 
-                    <div>
-                        <HorizontalScrollCard
-                            data={similarMovies}
-                            heading={`Similar ${params.explore}`}
-                            media_type={params.explore}
-                        />
-                        <HorizontalScrollCard
-                            data={recommendationMovies}
-                            heading={`Recomendation ${params.explore}`}
-                            media_type={params.explore}
-                        />
-                    </div>
+                    {similarMovies.length > 0 && recommendationMovies.length > 0 && (
+                        <div>
+                            <HorizontalScrollCard
+                                data={similarMovies}
+                                heading={`Similar ${params.explore}`}
+                                media_type={params.explore}
+                            />
+                            <HorizontalScrollCard
+                                data={recommendationMovies}
+                                heading={`Recomendation ${params.explore}`}
+                                media_type={params.explore}
+                            />
+                        </div>
+                    )}
 
-                    {playVideo && (
+                    {playVideo && playVideoId && (
                         <VideoPlay data={playVideoId} close={() => setPlayVideo(false)} media_type={params.explore} />
                     )}
                 </div>

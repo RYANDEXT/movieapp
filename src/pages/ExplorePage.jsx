@@ -26,15 +26,16 @@ const ExplorePage = () => {
         <div className="py-16">
             <div className="container mx-auto">
                 <h3 className="capitalize text-lg lg:text-xl font-semibold my-3">Popular {params.explore} Show</h3>
-
-                <div className="grid grid-cols-[repeat(auto-fit,230px)] gap-6 justify-center">
-                    {data.map((exploreData, index) => (
-                        <Card
-                            data={exploreData}
-                            key={exploreData.id + 'exploreSection' + index}
-                            media_type={params.explore}></Card>
-                    ))}
-                </div>
+                {data && data.length > 0 && (
+                    <div className="grid grid-cols-[repeat(auto-fit,230px)] gap-6 justify-center">
+                        {data.map((exploreData, index) => (
+                            <Card
+                                data={exploreData}
+                                key={exploreData.id + 'exploreSection' + index}
+                                media_type={params.explore}></Card>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

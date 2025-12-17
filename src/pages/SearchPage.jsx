@@ -28,8 +28,7 @@ const SearchPage = () => {
     }, [handleScroll]);
 
     return (
-        data ||
-        (data.length > 0 && (
+        data.length > 0 && (
             <div className="py-16">
                 <div className="lg:hidden my-2 mx-1 sticky top-17.5 z-30">
                     <input
@@ -53,7 +52,7 @@ const SearchPage = () => {
                     </div>
                 </div>
             </div>
-        ))
+        )
     );
 };
 

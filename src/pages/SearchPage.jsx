@@ -28,29 +28,32 @@ const SearchPage = () => {
     }, [handleScroll]);
 
     return (
-        <div className="py-16">
-            <div className="lg:hidden my-2 mx-1 sticky top-17.5 z-30">
-                <input
-                    type="text"
-                    placeholder="Search here ..."
-                    onChange={(e) => navigate(`/search?q=${e.target.value}`)}
-                    className="px-4 py-1 text-lg w-full bg-white rounded-full text-neutral-900"
-                />
-            </div>
+        data ||
+        (data.length > 0 && (
+            <div className="py-16">
+                <div className="lg:hidden my-2 mx-1 sticky top-17.5 z-30">
+                    <input
+                        type="text"
+                        placeholder="Search here ..."
+                        onChange={(e) => navigate(`/search?q=${e.target.value}`)}
+                        className="px-4 py-1 text-lg w-full bg-white rounded-full text-neutral-900"
+                    />
+                </div>
 
-            <div className="container mx-auto">
-                <h3 className="capitalize text-lg lg:text-xl font-semibold my-3">Search Result</h3>
+                <div className="container mx-auto">
+                    <h3 className="capitalize text-lg lg:text-xl font-semibold my-3">Search Result</h3>
 
-                <div className="grid grid-cols-[repeat(auto-fit,230px)] gap-6 justify-center">
-                    {data.map((searchData, index) => (
-                        <Card
-                            data={searchData}
-                            key={searchData.id + 'Search Data' + index}
-                            media_type={searchData.media_type}></Card>
-                    ))}
+                    <div className="grid grid-cols-[repeat(auto-fit,230px)] gap-6 justify-center">
+                        {data.map((searchData, index) => (
+                            <Card
+                                data={searchData}
+                                key={searchData.id + 'Search Data' + index}
+                                media_type={searchData.media_type}></Card>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
+        ))
     );
 };
 
